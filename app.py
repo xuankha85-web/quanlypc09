@@ -48,7 +48,7 @@ COLUMNS = [
 # =========================================================
 
 try:
-    ITHUB_TOKEN = str(st.secrets["GITHUB_TOKEN"]).strip()
+    GITHUB_TOKEN = str(st.secrets["GITHUB_TOKEN"]).strip()
     REPO_NAME = st.secrets["REPO_NAME"].strip().strip("/")
 
     if not GITHUB_TOKEN or not REPO_NAME:
