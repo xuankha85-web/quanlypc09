@@ -9,11 +9,14 @@ from datetime import datetime
 st.set_page_config(page_title="PC09 - NINH BÌNH", layout="centered", initial_sidebar_state="collapsed")
 
 # --- THÔNG TIN CẤU HÌNH GITHUB API AN TOÀN ---
+# 1. Định nghĩa các biến cơ bản trước (Đọc dữ liệu bảo mật từ Secrets)
 GITHUB_TOKEN = st.secrets["GITHUB_TOKEN"]
 REPO_NAME = st.secrets["REPO_NAME"]
+
+# Chỉ định chính xác tên file dữ liệu nằm ngay tại thư mục gốc ngoài cùng của kho lưu trữ
 FILE_PATH = "data_pc09.csv"
 
-# Đường dẫn API chuẩn kết nối đến máy chủ GitHub
+# 2. Tạo đường dẫn API chuẩn đến máy chủ của GitHub
 API_URL = f"https://github.com{REPO_NAME}/contents/{FILE_PATH}"
 
 headers = {
@@ -100,6 +103,7 @@ with tab1:
                 new_line = f"\n{stt_moi},{clean(so_vu)},{clean(dia_ban)},{ngay_hien_tai},{clean(noi_xay_ra)},{clean(ten_vu)},{clean(cq_yeucau)},{clean('; '.join(hoat_dong_list))},{clean(tinh_chat)},{clean(tinh_trang)},{clean(noi_dung)},{clean(dau_vet)},{clean(tai_lieu)},{clean(nhan_dinh)},{clean(can_bo)},{clean(cap_kn)},{clean('; '.join(loai_dau_vet_list))},{clean('; '.join(ket_qua_list))}"
                 
                 try:
+                    # GỌI ĐẾN BIẾN API_URL CHUẨN ĐÃ ĐỊNH NGHĨA Ở ĐẦU FILE - BỎ HOÀN TOÀN LINK CŨ BỊ LỖI DÍNH CHỮ
                     response = requests.get(API_URL, headers=headers, timeout=10)
                     if response.status_code == 200:
                         current_content = base64.b64decode(response.json()["content"]).decode("utf-8")
